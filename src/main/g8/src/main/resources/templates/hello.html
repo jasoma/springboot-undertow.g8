@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>$name$</title>
+</head>
+<body>
+    <h2>Hello, $name$!</h2>
+    <ul>
+        <li>SpringBoot: $boot_version$</li>
+        <li th:each="p : \${param}"><span th:text="\${p.key}"></span> : <span th:text="\${p.value[0]}"></span></li>
+    </ul>
+</body>
+</html>

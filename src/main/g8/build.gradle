@@ -1,0 +1,46 @@
+group '$group_id$'
+version '$version$'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$boot_version$"
+        classpath "io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "org.springframework.boot:spring-boot-starter-undertow"
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    runtime 'net.sourceforge.nekohtml:nekohtml:1.9.22'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+configurations {
+    // Stop spring-boot from using Tomcat as the embedded servlet container
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+test {
+    testLogging.events 'passed', 'skipped', 'failed'
+    testLogging.exceptionFormat = 'full'
+}
